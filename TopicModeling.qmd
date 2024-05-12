@@ -1,0 +1,66 @@
+---
+title: "Affirmative Action in College Admission: Readers' Response to Supreme Court Decision"
+subtitle: "Topic Modeling of NYT and WSJ Online Comments"
+author: "Asif Mehedi | Darden School"
+date: 2024-05-10
+execute: 
+  warning: false
+format:
+  html:
+    toc: true
+    number-sections: true
+    colorlinks: true
+    code-overflow: scroll
+    code-fold: true
+    section-divs: true
+    backgroundcolor: cornsilk
+    code-line-numbers: true
+    code-block-border-left: true
+    link-external-icon: true
+    link-external-newwindow: true
+    footnotes-hover: true
+    lang: en-US
+---
+
+::: {.callout-tip}
+To view, change or execute any code, or to add your own, please open the source notebook (a .qmd file) in R Studio. You'll need to install the Quarto CLI tool .
+
+A R script version of this notebook is also available in the repository.
+
+If you're reading this on a webpage, the codeblocks are collapsed by default. To expand a codeblock, click on `▶ Code`. 
+:::
+
+
+::: {.callout-note}
+## About Quarto Notebook
+This document was written as a [Quarto](https://quarto.org/) notebook, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code. It's also easy to convert a notebook to a range of formats.
+:::
+
+First we load the R packages we'll use in this exercise.
+
+```{r}
+#| echo = false
+
+library(tidyverse) # A collection of packages for data processing https://www.tidyverse.org/
+library(topicmodels) # LDA https://cran.r-universe.dev/topicmodels
+library(tm) # various "text mining" tasks https://r-forge.r-universe.dev/tm
+# library(wordcloud)
+library(stopwords) # lists of common words https://quanteda.r-universe.dev/stopwords
+library(ldatuning) # find optimal number of topics https://nikita-moor.r-universe.dev/ldatuning
+# possible use
+# https://bstewart.r-universe.dev/stm structural topic model
+```
+
+
+To avoid ambiguity, I use the general term `post` to mean top-level comments as well as nested replies. I reserve the term `comment` to mean only top-level comments.
+
+
+```{r}
+en_stopwords <- stopwords::stopwords(
+    language = "en", source = "snowball"
+)
+```
+
+# How many topics?
+
+See the references mentioned at the end of [this vignette](https://rpubs.com/siri/ldatuning).
