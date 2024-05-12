@@ -39,8 +39,6 @@ This document was written as a [Quarto](https://quarto.org/) notebook, which pro
 First we load the R packages we'll use in this exercise.
 
 ```{r}
-#| echo = false
-
 library(tidyverse) # A collection of packages for data processing https://www.tidyverse.org/
 library(topicmodels) # LDA https://cran.r-universe.dev/topicmodels
 library(tm) # various "text mining" tasks https://r-forge.r-universe.dev/tm

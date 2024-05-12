@@ -1,0 +1,9 @@
+[
+  {
+    "objectID": "topic_model.html",
+    "href": "topic_model.html",
+    "title": "Affirmative Action in College Admission: Readers’ Response to Supreme Court Decision",
+    "section": "",
+    "text": "Tip\n\n\n\nTo view, change or execute any code, or to add your own, please open the source notebook (a .qmd file) in R Studio. You’ll need to install the Quarto CLI tool .\nA R script version of this notebook is also available in the repository.\nIf you’re reading this on a webpage, the codeblocks are collapsed by default. To expand a codeblock, click on ▶ Code.\n\n\n\n\n\n\n\n\nAbout Quarto Notebook\n\n\n\nThis document was written as a Quarto notebook, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code. It’s also easy to convert a notebook to a range of formats.\n\n\nFirst we load the R packages we’ll use in this exercise.\n\n\nCode\nlibrary(tidyverse) # A collection of packages for data processing https://www.tidyverse.org/\nlibrary(topicmodels) # LDA https://cran.r-universe.dev/topicmodels\nlibrary(tm) # various \"text mining\" tasks https://r-forge.r-universe.dev/tm\n# library(wordcloud)\nlibrary(stopwords) # lists of common words https://quanteda.r-universe.dev/stopwords\nlibrary(ldatuning) # find optimal number of topics https://nikita-moor.r-universe.dev/ldatuning\n# possible use\n# https://bstewart.r-universe.dev/stm structural topic model\n\n\nTo avoid ambiguity, I use the general term post to mean top-level comments as well as nested replies. I reserve the term comment to mean only top-level comments.\n\n\nCode\nen_stopwords &lt;- stopwords::stopwords(\n    language = \"en\", source = \"snowball\"\n)\n\n\n\n1 How many topics?\nSee the references mentioned at the end of this vignette."
+  }
+]
