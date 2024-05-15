@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Asif Mehedi | Darden School">
-<meta name="dcterms.date" content="2024-05-10">
+<meta name="dcterms.date" content="2024-05-13">
 
-<title>Affirmative Action in College Admission: Readers’ Response to Supreme Court Decision</title>
+<title>Affirmative Action in College Admission: Analyzing Responses to Supreme Court Decision</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -101,6 +101,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+
+<script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
 
 
 </head>
@@ -109,7 +116,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Affirmative Action in College Admission: Analyzing Responses to Supreme Court Decision</h1>
+            <p class="subtitle lead">Topic Modeling of NYT and WSJ Online Readers’ Comments</p>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Asif Mehedi | Darden School </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 13, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
@@ -117,58 +153,309 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#how-many-topics" id="toc-how-many-topics" class="nav-link active" data-scroll-target="#how-many-topics"><span class="header-section-number">1</span> How many topics?</a></li>
+  <li><a href="#about-this-document" id="toc-about-this-document" class="nav-link active" data-scroll-target="#about-this-document">About this document</a>
+  <ul class="collapse">
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose">Purpose</a></li>
+  <li><a href="#quarto-notebook" id="toc-quarto-notebook" class="nav-link" data-scroll-target="#quarto-notebook">Quarto Notebook</a></li>
+  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
+  <ul class="collapse">
+  <li><a href="#loading-r-packages" id="toc-loading-r-packages" class="nav-link" data-scroll-target="#loading-r-packages">Loading R packages</a></li>
+  <li><a href="#getting-data" id="toc-getting-data" class="nav-link" data-scroll-target="#getting-data">Getting data</a></li>
+  </ul></li>
+  <li><a href="#pre-processing-data" id="toc-pre-processing-data" class="nav-link" data-scroll-target="#pre-processing-data">Pre-processing data</a></li>
+  <li><a href="#document-term-matrix" id="toc-document-term-matrix" class="nav-link" data-scroll-target="#document-term-matrix">Document-term matrix</a></li>
+  <li><a href="#topic-modeling" id="toc-topic-modeling" class="nav-link" data-scroll-target="#topic-modeling">Topic modeling</a></li>
+  <li><a href="#evaluating-topics" id="toc-evaluating-topics" class="nav-link" data-scroll-target="#evaluating-topics">Evaluating topics</a>
+  <ul class="collapse">
+  <li><a href="#k-2" id="toc-k-2" class="nav-link" data-scroll-target="#k-2">k = 2</a></li>
+  <li><a href="#k-3" id="toc-k-3" class="nav-link" data-scroll-target="#k-3">k = 3</a></li>
+  <li><a href="#k-4" id="toc-k-4" class="nav-link" data-scroll-target="#k-4">k = 4</a></li>
+  <li><a href="#k-5" id="toc-k-5" class="nav-link" data-scroll-target="#k-5">k = 5</a></li>
+  <li><a href="#k-6" id="toc-k-6" class="nav-link" data-scroll-target="#k-6">k = 6</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Affirmative Action in College Admission: Readers’ Response to Supreme Court Decision</h1>
-<p class="subtitle lead">Topic Modeling of NYT and WSJ Online Comments</p>
+
+
+
+
+<section id="about-this-document" class="level1">
+<h1>About this document</h1>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+<p>This document contains the step-by-step code for a typical topic modeling (TM) exercise. TM is an inductive and exploratory technique. A satisfactory outcome requires experimenting with different algorithmic and parameter choices. Here we use the Latent Dirichlet Allocation (LDA) algorithm, a popular TM method, using a reasonable set of parameters. The document provides a starting point for further iteration, exploration and refinement.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+  input([Input: text data]) --&gt; A(Pre-process text data) 
+  A --&gt; B(Create document-term matrix) --&gt; C(Decide on model parameters) 
+  C --&gt; D(Generate topic model) 
+  D --&gt; output([Output: N lists of terms, each list representing a topic])
+  output -.-&gt; E(Evaluate coherence of topics) -.-&gt; C
+</pre>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Asif Mehedi | Darden School </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">May 10, 2024</p>
-    </div>
-  </div>
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div class="callout callout-style-default callout-tip callout-titled">
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="quarto-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="quarto-notebook">Quarto Notebook</h2>
+<p>This document was written as a <a href="https://quarto.org/">Quarto notebook</a>, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code.</p>
+<p>To view, change or execute any code, please open the source notebook (a .qmd file in the repository) in <a href="https://posit.co/download/rstudio-desktop/">R Studio</a>. Please consult the <a href="https://quarto.org/">Quarto website</a> for instructions on how to set up your execution environment.</p>
+<p>Alternatively, you can use the R script file that contains the same code and is available in the repository.</p>
+</section>
+</section>
+<section id="setup" class="level1">
+<h1>Setup</h1>
+<section id="loading-r-packages" class="level2">
+<h2 class="anchored" data-anchor-id="loading-r-packages">Loading R packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(tm)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(topicmodels)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">library</span>(slam)</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(topicdoc)</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(stopwords)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="getting-data" class="level2">
+<h2 class="anchored" data-anchor-id="getting-data">Getting data</h2>
+<p>We load the data from a CSV file that contains the text of the posts. The data was collected from the online comments section of two news websites, The New York Times (NYT) and The Wall Street Journal (WSJ). The data was collected in 2023, following the Supreme Court’s decision on affirmative action in college admissions.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>posts <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/posts.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>To view, change or execute any code, or to add your own, please open the source notebook (a .qmd file) in R Studio. You’ll need to install the Quarto CLI tool .</p>
-<p>A R script version of this notebook is also available in the repository.</p>
-<p>If you’re reading this on a webpage, the codeblocks are collapsed by default. To expand a codeblock, click on <code>▶ Code</code>.</p>
+<p>To avoid ambiguity, I use <code>post</code> as a general term to mean top-level comments as well as nested replies. The term <code>comment</code> means only top-level comments.</p>
+</div>
+</div>
+<p>The CSV file was earlier prepared from two Excel files, one for each news website, as follows:</p>
+<ol type="1">
+<li>The Excel files were manually cleaned to remove duplicate, malformed and unrelated data.</li>
+<li>The two sets of cleaned data were further processed in R to standardize their column names, remove unnecessary columns and create a few new ones.</li>
+<li>All data were then merged into a single CSV file, <code>posts.csv</code>, containing the following columns.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">glimpse</span>(posts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 44,473
+Columns: 9
+$ post_text     &lt;chr&gt; "&gt; Is that fair? -- -- No; but that's not an argument fo…
+$ post_id       &lt;chr&gt; "wsj1", "wsj2", "wsj3", "wsj4", "wsj5", "wsj6", "wsj7", …
+$ post_type     &lt;chr&gt; "reply", "comment", "comment", "comment", "comment", "co…
+$ post_length   &lt;dbl&gt; 100, 1443, 1240, 1193, 1191, 894, 732, 701, 640, 558, 54…
+$ post_date     &lt;date&gt; 2023-07-06, 2023-06-30, 2023-06-29, 2023-06-29, 2023-07…
+$ upvotes       &lt;dbl&gt; 2, 0, 0, 0, 1, 2, 9, 4, 5, 0, 0, 0, 6, 4, 0, 2, 2, 1, 1,…
+$ reply_count   &lt;dbl&gt; 0, 3, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1, 3,…
+$ article_title &lt;chr&gt; "Opinion: Justice Jackson’s Incredible Statistic", "Scho…
+$ article_url   &lt;chr&gt; "https://www.wsj.com/articles/justice-jacksons-incredibl…</code></pre>
+</div>
+</div>
+<details>
+<summary>
+The code that generated <code>posts.csv</code> from the original Excel files.
+</summary>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>nyt <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"Data/CommentsNYT.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"cleaned"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5"></a>wsj <span class="ot">&lt;-</span> <span class="fu">read_xlsx</span>(<span class="st">"Data/CommentsWSJ.xlsx"</span>, <span class="at">sheet =</span> <span class="st">"cleaned"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>nyt_posts <span class="ot">&lt;-</span> nyt <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="fu">rename</span>(</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="at">post_text =</span> commentBody, <span class="at">post_type =</span> commentType,</span>
+<span id="cb5-10"><a href="#cb5-10"></a>    <span class="at">article_url =</span> address, <span class="at">article_title =</span> title,</span>
+<span id="cb5-11"><a href="#cb5-11"></a>    <span class="at">upvotes =</span> recommendations, <span class="at">reply_count =</span> replyCount,</span>
+<span id="cb5-12"><a href="#cb5-12"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-14"><a href="#cb5-14"></a>    <span class="at">post_id =</span> <span class="fu">paste0</span>(<span class="st">"nyt"</span>, <span class="fu">row_number</span>()),</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    <span class="at">post_type =</span> <span class="fu">ifelse</span>(post_type <span class="sc">==</span> <span class="st">"userReply"</span>, <span class="st">"reply"</span>, post_type),</span>
+<span id="cb5-16"><a href="#cb5-16"></a>    <span class="at">post_date =</span> <span class="fu">as_date</span>(createDate),</span>
+<span id="cb5-17"><a href="#cb5-17"></a>    <span class="at">publication =</span> <span class="st">"NYT"</span></span>
+<span id="cb5-18"><a href="#cb5-18"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>  <span class="fu">select</span>(</span>
+<span id="cb5-20"><a href="#cb5-20"></a>    post_text, post_id, post_type, post_length, post_date,</span>
+<span id="cb5-21"><a href="#cb5-21"></a>    upvotes, reply_count, article_title, article_url</span>
+<span id="cb5-22"><a href="#cb5-22"></a>  )</span>
+<span id="cb5-23"><a href="#cb5-23"></a></span>
+<span id="cb5-24"><a href="#cb5-24"></a>wsj_posts <span class="ot">&lt;-</span> wsj <span class="sc">|&gt;</span></span>
+<span id="cb5-25"><a href="#cb5-25"></a>  <span class="fu">rename</span>(</span>
+<span id="cb5-26"><a href="#cb5-26"></a>    <span class="at">post_text =</span> content, <span class="at">post_type =</span> type,</span>
+<span id="cb5-27"><a href="#cb5-27"></a>    <span class="at">article_url =</span> address, <span class="at">article_title =</span> title,</span>
+<span id="cb5-28"><a href="#cb5-28"></a>    <span class="at">upvotes =</span> rank.ranks_up, <span class="at">reply_count =</span> replies_count</span>
+<span id="cb5-29"><a href="#cb5-29"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-30"><a href="#cb5-30"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-31"><a href="#cb5-31"></a>    <span class="at">post_id =</span> <span class="fu">paste0</span>(<span class="st">"wsj"</span>, <span class="fu">row_number</span>()),</span>
+<span id="cb5-32"><a href="#cb5-32"></a>    <span class="at">post_date =</span> <span class="fu">as_date</span>(written_at),</span>
+<span id="cb5-33"><a href="#cb5-33"></a>    <span class="at">publication =</span> <span class="st">"WSJ"</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb5-35"><a href="#cb5-35"></a>  <span class="fu">select</span>(</span>
+<span id="cb5-36"><a href="#cb5-36"></a>    post_text, post_id, post_type, post_length, post_date,</span>
+<span id="cb5-37"><a href="#cb5-37"></a>    upvotes, reply_count, article_title, article_url</span>
+<span id="cb5-38"><a href="#cb5-38"></a>  )</span>
+<span id="cb5-39"><a href="#cb5-39"></a></span>
+<span id="cb5-40"><a href="#cb5-40"></a>posts <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(wsj_posts, nyt_posts)</span>
+<span id="cb5-41"><a href="#cb5-41"></a></span>
+<span id="cb5-42"><a href="#cb5-42"></a><span class="fu">write_csv</span>(posts, <span class="st">"Data/posts.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</details>
+<p>Below is a random sample of five rows from the <code>posts</code> data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">slice_sample</span>(posts, <span class="at">n =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["post_text"],"name":[1],"type":["chr"],"align":["left"]},{"label":["post_id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["post_type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["post_length"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["post_date"],"name":[5],"type":["date"],"align":["right"]},{"label":["upvotes"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["reply_count"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["article_title"],"name":[8],"type":["chr"],"align":["left"]},{"label":["article_url"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"The grit and desire it takes for someone who's had to fight their way to the top should indeed be taken into account, in my opinion. But, this should only be for students who lag just a bit behind and not by a wide gulf as was the case at Harvard. We also have to ask if it's really to the advantage of that student to accept them into programs that are far above their abilities. The drop-out rates for students of affirmative action admissions are astoundingly high at many of these schools. African Americans are just as capable as anyone else, period. But I truly believe that we as a society have institutionalized low expectations for this group at every level. It's a demeaning practice that is bad for everyone involved.","2":"nyt2648","3":"comment","4":"728","5":"2023-07-02","6":"6","7":"1","8":"With End of Affirmative Action, a Push for a New Tool: Adversity ScoresTo build a diverse class of students, the medical school at U.C. Davis ranks applicants by the disadvantages they have faced. Can it work nationally?By Stephanie SaulPRINT EDITIONWith the End of Affirmative Action, a Push for a New Tool: Adversity Scores|July 3, 2023, Page A13","9":"https://www.nytimes.com/2023/07/02/us/affirmative-action-university-of-california-davis.html"},{"1":"since she is quite obviously an intelligent person and a deep thinker In what way is it obvious? I see only the results of a diversity hire.","2":"wsj13332","3":"reply","4":"140","5":"2023-07-06","6":"5","7":"1","8":"Opinion: Justice Jackson’s Incredible Statistic","9":"https://www.wsj.com/articles/justice-jacksons-incredible-statistic-black-newborns-doctors-math-flaw-mortality-4115ff62"},{"1":"Hi William, Typing fast and not proofing..meant dissent not decent...sorry for the confusion but you make great points in your response 🥺","2":"wsj13464","3":"reply","4":"138","5":"2023-06-30","6":"2","7":"0","8":"Opinion: A Landmark for Racial Equality at the Supreme Court","9":"https://www.wsj.com/articles/harvard-unc-students-for-fair-admissions-supreme-court-affirmative-action-john-roberts-clarence-thomas-racial-preferences-f8c998f6"},{"1":"I recall reading of something else to consider. In terms of papers publsihed as a measure of professional success, it's far better to be a scientist who graduated first, second, or third in class from a no-name state college than one who graduated in the 50th percentile from an ivy league school. The kids who ranked better at a lower tier school outperform their advantaged colleagues. I suppose that's a silver lining of what I take to be a dark cloud, If Justice Thomas's escapades aren't enough to get him booted off the bench, we're likely stuck with him and his five buddies for a good while. especially if ex-president Donnie defies the odds yet again, or a clone of his wins in '24, and 'pubs are able to pick yet another justice.","2":"nyt2583","3":"comment","4":"739","5":"2023-06-30","6":"7","7":"0","8":"I Teach at an Elite College. Here’s a Look Inside the Racial Gaming of Admissions.The end of affirmative action will only cause students and parents to get even more creative about gaming college admissions.By Tyler Austin HarperPRINT EDITION I Prepped Elite College Applicants.  Here’s How the Race Game Is Played.|July 3, 2023, Page A19","9":"https://www.nytimes.com/2023/06/29/opinion/college-admissions-affirmative-action.html"},{"1":"Re: \"Now discuss the person that didn’t get that spot\" Response: Your assumption, and others who clicked thumbs-up, imply that Mr. Guerrero was not qualified and some unknown better qualified person was unjustly overlooked. A few comments: 1. Neither of us know the specifics of that hiring process. 2. Hiring managers cannot predict how a specific hire will actually perform in the workplace. I've seen an experienced PHD employee ranked lower than a very ambitious entry level employee from a less prestigious university. I suggest you perform a deep, intellectually honest, unvarnished self assessment of why, without any supporting data, you made the assumption Mr. Guerrero was unqualified. If affirmative action laws never existed, would you have the same assumption? BTW, I have never been a fan of Affirmative Action with regards to college admissions.","2":"wsj1246","3":"reply","4":"860","5":"2023-07-01","6":"0","7":"1","8":"Companies Expect New Challenges to Diversity Policies After Court Ruling","9":"https://www.wsj.com/articles/companiesexpectnew-challenges-todiversitypolicies-after-court-ruling-4bf48c1d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pre-processing-data" class="level1">
+<h1>Pre-processing data</h1>
+<p>For topic modeling, the relevant columns of the data frame are: - <code>post_text</code>: the text of the post - <code>post_id</code>: unique identifier for each post</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Rename relevant columns according to `tm` package requirements</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>textdata <span class="ot">&lt;-</span> posts <span class="sc">|&gt;</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">rename</span>(<span class="at">doc_id =</span> post_id, <span class="at">text =</span> post_text) <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">select</span>(doc_id, text) <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">as.data.frame</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The text data is first transformed through a series of steps to remove various types of noise:</p>
+<ol type="1">
+<li>Convert to lower case</li>
+<li>Remove stopwords (common words that do not carry much meaning)</li>
+<li>Remove punctuation</li>
+<li>Remove numbers</li>
+<li>Stem words (convert related words to a common base form)</li>
+<li>Strip whitespace</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>en_stopwords <span class="ot">&lt;-</span> stopwords<span class="sc">::</span><span class="fu">stopwords</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="at">language =</span> <span class="st">"en"</span>, <span class="at">source =</span> <span class="st">"snowball"</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a>)</span>
+<span id="cb8-4"><a href="#cb8-4"></a>corpus <span class="ot">&lt;-</span> tm<span class="sc">::</span><span class="fu">Corpus</span>(<span class="fu">DataframeSource</span>(textdata)) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a>    <span class="fu">tm_map</span>(<span class="fu">content_transformer</span>(tolower)) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>    <span class="fu">tm_map</span>(removeWords, en_stopwords) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7"></a>    <span class="fu">tm_map</span>(removePunctuation, <span class="at">preserve_intra_word_dashes =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8"></a>    <span class="fu">tm_map</span>(removeNumbers) <span class="sc">|&gt;</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="fu">tm_map</span>(stemDocument, <span class="at">language =</span> <span class="st">"en"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-10"><a href="#cb8-10"></a>    <span class="fu">tm_map</span>(stripWhitespace)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="document-term-matrix" class="level1">
+<h1>Document-term matrix</h1>
+<p>Topic modeling requires, as its input, a <a href="https://en.wikipedia.org/wiki/Document-term_matrix">document-term matrix (DTM)</a>, where each row represents a document (a post in our case) and each column represents a term (a word). The value of each cell in the matrix is the frequency of the term in the corresponding document.</p>
+<p>We now create a DTM from the pre-processed text data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>min_doc <span class="ot">&lt;-</span> <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>dtm <span class="ot">&lt;-</span> tm<span class="sc">::</span><span class="fu">DocumentTermMatrix</span>(corpus,</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="at">control =</span> <span class="fu">list</span>(<span class="at">bounds =</span> <span class="fu">list</span>(<span class="at">global =</span> <span class="fu">c</span>(min_doc, <span class="cn">Inf</span>)))</span>
+<span id="cb10-3"><a href="#cb10-3"></a>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="co"># Vocabulary pruning may create empty rows in the dtm.</span></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="co"># Such rows need to be removed before running LDA.</span></span>
+<span id="cb10-7"><a href="#cb10-7"></a>idx <span class="ot">&lt;-</span> slam<span class="sc">::</span><span class="fu">row_sums</span>(dtm) <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb10-8"><a href="#cb10-8"></a>dtm <span class="ot">&lt;-</span> dtm[idx, ]</span>
+<span id="cb10-9"><a href="#cb10-9"></a>textdata <span class="ot">&lt;-</span> textdata[idx, ]</span>
+<span id="cb10-10"><a href="#cb10-10"></a></span>
+<span id="cb10-11"><a href="#cb10-11"></a><span class="co"># Save for later use</span></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="fu">save</span>(dtm, textdata, <span class="at">file =</span> <span class="st">"r_objects/dtm.RData"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>While creating the DTM, we removed terms that occur in fewer than 10 documents. This is done to reduce the size of the matrix and to remove terms that are too rare to be useful in identifying topics.</p>
+<p>The DTM is a sparse matrix, which means that most of the cells are zero. We can inspect the DTM and see its structure.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">load</span>(<span class="st">"r_objects/dtm.RData"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a>tm<span class="sc">::</span><span class="fu">inspect</span>(dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;&lt;DocumentTermMatrix (documents: 44323, terms: 5984)&gt;&gt;
+Non-/sparse entries: 1003305/264225527
+Sparsity           : 100%
+Maximal term length: 16
+Weighting          : term frequency (tf)
+Sample             :
+        Terms
+Docs     action admiss affirm black colleg get one peopl school student
+  nyt115      3      0      3     0      3   1   0     2      5       8
+  nyt116      1      0      1     0      2   1   0     0      1       3
+  nyt125      0      0      0     0      3   0   3     0      5       2
+  nyt147      1      0      1     1      1   1   0     0      0       0
+  nyt261      0      1      0     0      4   1   3     0      5       0
+  nyt292      1      0      1     0      4   4   0     0      4       6
+  nyt404      0      0      0     0      1   0   2     0      5       0
+  wsj119      2      0      2     3      0   0   0     4      0       0
+  wsj195      0      0      0     0      0   1   2     2      0       0
+  wsj252      0      0      0     3      0   1   4     0      0       0</code></pre>
+</div>
+</div>
+<p>We can find the most frequently occurring terms in the DTM for each news website.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="co"># Split the dtm into two parts</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>dtm_wsj <span class="ot">&lt;-</span> dtm[<span class="fu">grepl</span>(<span class="st">"^wsj"</span>, dtm<span class="sc">$</span>dimnames<span class="sc">$</span>Docs), ]</span>
+<span id="cb13-3"><a href="#cb13-3"></a>dtm_nyt <span class="ot">&lt;-</span> dtm[<span class="fu">grepl</span>(<span class="st">"^nyt"</span>, dtm<span class="sc">$</span>dimnames<span class="sc">$</span>Docs), ]</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># Calculate term frequencies for wsj</span></span>
+<span id="cb13-6"><a href="#cb13-6"></a>term_freq_wsj <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">colSums</span>(<span class="fu">as.matrix</span>(dtm_wsj))</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="co"># Sort term frequencies in descending order for wsj</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>sorted_term_freq_wsj <span class="ot">&lt;-</span> <span class="fu">sort</span>(term_freq_wsj, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-10"><a href="#cb13-10"></a></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="co"># Find the most occurring 20 terms in wsj</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>top_terms_wsj <span class="ot">&lt;-</span> sorted_term_freq_wsj[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span>
+<span id="cb13-13"><a href="#cb13-13"></a></span>
+<span id="cb13-14"><a href="#cb13-14"></a><span class="co"># Calculate term frequencies for nyt</span></span>
+<span id="cb13-15"><a href="#cb13-15"></a>term_freq_nyt <span class="ot">&lt;-</span> base<span class="sc">::</span><span class="fu">colSums</span>(<span class="fu">as.matrix</span>(dtm_nyt))</span>
+<span id="cb13-16"><a href="#cb13-16"></a></span>
+<span id="cb13-17"><a href="#cb13-17"></a><span class="co"># Sort term frequencies in descending order for nyt</span></span>
+<span id="cb13-18"><a href="#cb13-18"></a>sorted_term_freq_nyt <span class="ot">&lt;-</span> <span class="fu">sort</span>(term_freq_nyt, <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-19"><a href="#cb13-19"></a></span>
+<span id="cb13-20"><a href="#cb13-20"></a><span class="co"># Find the most occurring 20 terms in nyt</span></span>
+<span id="cb13-21"><a href="#cb13-21"></a>top_terms_nyt <span class="ot">&lt;-</span> sorted_term_freq_nyt[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>New York Times:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">print</span>(top_terms_nyt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> school student  colleg  admiss   peopl  action  affirm   court    educ     get 
+   7572    7254    6352    4929    4351    4255    4118    4074    3997    3923 
+    one     can univers    race    like   white    just    mani  legaci    make 
+   3729    3540    3390    3283    3156    3113    2996    2978    2791    2735 </code></pre>
+</div>
+</div>
+<p>Wall Street Journal:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">print</span>(top_terms_wsj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   school     black     peopl   student       one      race       get       can 
+     4644      4080      3372      3308      3179      3122      2920      2877 
+    white    colleg    action    affirm      like      just     court    divers 
+     2824      2810      2757      2666      2543      2539      2528      2375 
+   admiss discrimin     think      educ 
+     2344      2278      2201      2076 </code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -177,44 +464,244 @@ Tip
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-About Quarto Notebook
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>This document was written as a <a href="https://quarto.org/">Quarto</a> notebook, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code. It’s also easy to convert a notebook to a range of formats.</p>
+<p>The terms are <em>stemmed</em>, so they are usually not in their original form.</p>
 </div>
 </div>
-<p>First we load the R packages we’ll use in this exercise.</p>
+</section>
+<section id="topic-modeling" class="level1">
+<h1>Topic modeling</h1>
+<p>Now we are ready to run the LDA algorithm to generate topics from the DTM.</p>
+<p>The LDA function, which comes from the <code>topicmodels</code> package, has <a href="https://rdrr.io/cran/topicmodels/man/tmcontrol-class.html">a number of hyperparameters</a> that can be tuned. Here we use the default values for most of them.</p>
+<p>Since this algorithm is stochastic, meaning that it may produce different results each time it is run, we set a seed value to ensure reproducibility.</p>
+<p>The key parameter is <code>k</code>, the number of topics. We create multiple models by looping over different values of <code>k</code>, saving each model for later inspection.</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># A collection of packages for data processing https://www.tidyverse.org/</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(topicmodels) <span class="co"># LDA https://cran.r-universe.dev/topicmodels</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(tm) <span class="co"># various "text mining" tasks https://r-forge.r-universe.dev/tm</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># library(wordcloud)</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">library</span>(stopwords) <span class="co"># lists of common words https://quanteda.r-universe.dev/stopwords</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="fu">library</span>(ldatuning) <span class="co"># find optimal number of topics https://nikita-moor.r-universe.dev/ldatuning</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co"># possible use</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co"># https://bstewart.r-universe.dev/stm structural topic model</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb18-2"><a href="#cb18-2"></a></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co"># Number of iterations for the LDA algorithm</span></span>
+<span id="cb18-4"><a href="#cb18-4"></a>iter <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb18-5"><a href="#cb18-5"></a></span>
+<span id="cb18-6"><a href="#cb18-6"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">6</span>) {</span>
+<span id="cb18-7"><a href="#cb18-7"></a>    <span class="co"># Create the LDA model</span></span>
+<span id="cb18-8"><a href="#cb18-8"></a>    lda <span class="ot">&lt;-</span> topicmodels<span class="sc">::</span><span class="fu">LDA</span>(dtm,</span>
+<span id="cb18-9"><a href="#cb18-9"></a>        <span class="at">k =</span> k, <span class="at">method =</span> <span class="st">"Gibbs"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10"></a>        <span class="at">control =</span> <span class="fu">list</span>(<span class="at">iter =</span> iter, <span class="at">verbose =</span> iter <span class="sc">/</span> <span class="dv">10</span>)</span>
+<span id="cb18-11"><a href="#cb18-11"></a>    )</span>
+<span id="cb18-12"><a href="#cb18-12"></a></span>
+<span id="cb18-13"><a href="#cb18-13"></a>    <span class="co"># Save the model</span></span>
+<span id="cb18-14"><a href="#cb18-14"></a>    <span class="fu">saveRDS</span>(lda, <span class="fu">paste0</span>(<span class="st">"models/lda_"</span>, k, <span class="st">".rds"</span>))</span>
+<span id="cb18-15"><a href="#cb18-15"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To avoid ambiguity, I use the general term <code>post</code> to mean top-level comments as well as nested replies. I reserve the term <code>comment</code> to mean only top-level comments.</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>en_stopwords <span class="ot">&lt;-</span> stopwords<span class="sc">::</span><span class="fu">stopwords</span>(</span>
-<span id="cb2-2"><a href="#cb2-2"></a>    <span class="at">language =</span> <span class="st">"en"</span>, <span class="at">source =</span> <span class="st">"snowball"</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+</section>
+<section id="evaluating-topics" class="level1 page-columns page-full">
+<h1>Evaluating topics</h1>
+<p>We can now inspect the topics generated by the models for each value of <code>k</code>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<section id="how-many-topics" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> How many topics?</h1>
-<p>See the references mentioned at the end of <a href="https://rpubs.com/siri/ldatuning">this vignette</a>.</p>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The topics are represented as lists of terms. Within a topic, the terms are ordered by their relevance to that topic.</p>
+</div>
+</div>
+<p>In addition to showing the top terms for each topic, we can also use the <code>topicdoc</code> package to get a diagnostic summary of the topics. The summary provides a range of metrics to evaluate the quality of the generated topics.</p>
+<p>From the package’s <a href="https://cran.r-project.org/web/packages/topicdoc/vignettes/basic_usage.html">documentation</a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/diagnostic_metrics.jpg" class="img-fluid figure-img"></p>
+<figcaption>topicdoc metrics</figcaption>
+</figure>
+</div>
+<p>The metrics are described in detail in <a href="https://mimno.infosci.cornell.edu/papers/2014_book_chapter_care_and_feeding.pdf">this book chapter</a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<section id="k-2" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="k-2">k = 2</h2>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>lda2 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_2.rds"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2"></a>top_terms2 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda2, <span class="dv">15</span>)</span>
+<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">print</span>(top_terms2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Topic 1     Topic 2  
+ [1,] "action"    "school" 
+ [2,] "affirm"    "student"
+ [3,] "peopl"     "colleg" 
+ [4,] "court"     "admiss" 
+ [5,] "race"      "get"    
+ [6,] "black"     "educ"   
+ [7,] "right"     "univers"
+ [8,] "discrimin" "divers" 
+ [9,] "one"       "mani"   
+[10,] "american"  "can"    
+[11,] "just"      "need"   
+[12,] "decis"     "work"   
+[13,] "justic"    "legaci" 
+[14,] "now"       "white"  
+[15,] "law"       "year"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>topicdoc<span class="sc">::</span><span class="fu">topic_diagnostics</span>(<span class="at">topic_model =</span> lda2, <span class="at">dtm_data =</span> dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["topic_num"],"name":[1],"type":["int"],"align":["right"]},{"label":["topic_size"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_token_length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["dist_from_corpus"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tf_df_dist"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["doc_prominence"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["topic_coherence"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["topic_exclusivity"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"3530.129","3":"5.6","4":"0.4605488","5":"24.67541","6":"44321","7":"-129.2440","8":"8.460829"},{"1":"2","2":"2453.871","3":"5.2","4":"0.4481033","5":"31.79457","6":"44321","7":"-112.4698","8":"9.758207"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="k-3" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="k-3">k = 3</h2>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>lda3 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_3.rds"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2"></a>top_terms3 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda3, <span class="dv">15</span>)</span>
+<span id="cb22-3"><a href="#cb22-3"></a><span class="fu">print</span>(top_terms3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Topic 1   Topic 2     Topic 3    
+ [1,] "school"  "peopl"     "court"    
+ [2,] "student" "action"    "right"    
+ [3,] "colleg"  "black"     "decis"    
+ [4,] "admiss"  "affirm"    "justic"   
+ [5,] "get"     "race"      "law"      
+ [6,] "educ"    "white"     "suprem"   
+ [7,] "univers" "divers"    "rule"     
+ [8,] "work"    "discrimin" "one"      
+ [9,] "legaci"  "american"  "state"    
+[10,] "mani"    "just"      "know"     
+[11,] "kid"     "way"       "case"     
+[12,] "harvard" "base"      "constitut"
+[13,] "need"    "one"       "say"      
+[14,] "year"    "asian"     "major"    
+[15,] "can"     "minor"     "time"     </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>topicdoc<span class="sc">::</span><span class="fu">topic_diagnostics</span>(<span class="at">topic_model =</span> lda3, <span class="at">dtm_data =</span> dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["topic_num"],"name":[1],"type":["int"],"align":["right"]},{"label":["topic_size"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_token_length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["dist_from_corpus"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tf_df_dist"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["doc_prominence"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["topic_coherence"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["topic_exclusivity"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1689.224","3":"5.3","4":"0.5526534","5":"31.25872","6":"43712","7":"-118.3548","8":"9.811130"},{"1":"2","2":"1582.715","3":"5.8","4":"0.5425784","5":"24.78701","6":"44140","7":"-123.1761","8":"9.855932"},{"1":"3","2":"2712.061","3":"4.6","4":"0.5589820","5":"16.36112","6":"43713","7":"-145.6693","8":"9.168930"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="k-4" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="k-4">k = 4</h2>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>lda4 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_4.rds"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>top_terms4 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda4, <span class="dv">15</span>)</span>
+<span id="cb25-3"><a href="#cb25-3"></a><span class="fu">print</span>(top_terms4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Topic 1 Topic 2     Topic 3     Topic 4  
+ [1,] "just"  "action"    "court"     "school" 
+ [2,] "like"  "black"     "right"     "student"
+ [3,] "one"   "affirm"    "decis"     "colleg" 
+ [4,] "peopl" "race"      "justic"    "admiss" 
+ [5,] "can"   "white"     "law"       "educ"   
+ [6,] "think" "divers"    "suprem"    "univers"
+ [7,] "work"  "discrimin" "rule"      "legaci" 
+ [8,] "want"  "american"  "case"      "get"    
+ [9,] "make"  "base"      "state"     "kid"    
+[10,] "know"  "peopl"     "major"     "harvard"
+[11,] "year"  "asian"     "constitut" "mani"   
+[12,] "get"   "minor"     "fact"      "high"   
+[13,] "time"  "equal"     "thoma"     "class"  
+[14,] "good"  "racial"    "democrat"  "public" 
+[15,] "’s"    "group"     "read"      "admit"  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>topicdoc<span class="sc">::</span><span class="fu">topic_diagnostics</span>(<span class="at">topic_model =</span> lda4, <span class="at">dtm_data =</span> dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["topic_num"],"name":[1],"type":["int"],"align":["right"]},{"label":["topic_size"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_token_length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["dist_from_corpus"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tf_df_dist"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["doc_prominence"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["topic_coherence"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["topic_exclusivity"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1456.165","3":"4.0","4":"0.6167093","5":"14.49313","6":"39799","7":"-135.0707","8":"9.414085"},{"1":"2","2":"1221.065","3":"5.8","4":"0.6011160","5":"24.81350","6":"38812","7":"-125.5721","8":"9.866588"},{"1":"3","2":"2084.875","3":"4.8","4":"0.6193039","5":"15.80134","6":"36448","7":"-146.4304","8":"9.763691"},{"1":"4","2":"1221.895","3":"5.5","4":"0.6098404","5":"31.85611","6":"36909","7":"-120.0302","8":"9.798994"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="k-5" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="k-5">k = 5</h2>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>lda5 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_5.rds"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2"></a>top_terms5 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda5, <span class="dv">15</span>)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">print</span>(top_terms5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Topic 1     Topic 2   Topic 3   Topic 4  Topic 5    
+ [1,] "court"     "school"  "get"     "one"    "action"   
+ [2,] "right"     "student" "peopl"   "can"    "black"    
+ [3,] "decis"     "colleg"  "year"    "think"  "affirm"   
+ [4,] "justic"    "educ"    "work"    "say"    "race"     
+ [5,] "law"       "admiss"  "want"    "make"   "white"    
+ [6,] "suprem"    "univers" "just"    "like"   "divers"   
+ [7,] "rule"      "legaci"  "time"    "point"  "discrimin"
+ [8,] "state"     "kid"     "like"    "person" "american" 
+ [9,] "case"      "harvard" "good"    "know"   "base"     
+[10,] "constitut" "high"    "’s"      "differ" "peopl"    
+[11,] "major"     "class"   "countri" "even"   "asian"    
+[12,] "thoma"     "public"  "make"    "just"   "minor"    
+[13,] "democrat"  "admit"   "now"     "actual" "equal"    
+[14,] "govern"    "elit"    "need"    "also"   "racial"   
+[15,] "polit"     "applic"  "take"    "best"   "group"    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>topicdoc<span class="sc">::</span><span class="fu">topic_diagnostics</span>(<span class="at">topic_model =</span> lda5, <span class="at">dtm_data =</span> dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["topic_num"],"name":[1],"type":["int"],"align":["right"]},{"label":["topic_size"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_token_length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["dist_from_corpus"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tf_df_dist"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["doc_prominence"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["topic_coherence"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["topic_exclusivity"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1689.7301","3":"5.2","4":"0.6521603","5":"16.04620","6":"17130","7":"-143.9293","8":"9.844830"},{"1":"2","2":"914.4241","3":"5.6","4":"0.6517684","5":"31.52748","6":"16898","7":"-121.9750","8":"9.917625"},{"1":"3","2":"1236.1018","3":"3.8","4":"0.6428925","5":"14.60080","6":"19230","7":"-146.2599","8":"9.469475"},{"1":"4","2":"1205.0437","3":"4.3","4":"0.6393241","5":"11.08762","6":"18728","7":"-154.6756","8":"9.219655"},{"1":"5","2":"938.7003","3":"5.8","4":"0.6391731","5":"24.81350","6":"17337","7":"-125.5721","8":"9.893233"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+</section>
+<section id="k-6" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="k-6">k = 6</h2>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>lda6 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_6.rds"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2"></a>top_terms6 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda6, <span class="dv">15</span>)</span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="fu">print</span>(top_terms6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Topic 1   Topic 2    Topic 3   Topic 4     Topic 5     Topic 6 
+ [1,] "year"    "school"   "admiss"  "action"    "court"     "just"  
+ [2,] "time"    "student"  "get"     "affirm"    "right"     "think" 
+ [3,] "peopl"   "colleg"   "legaci"  "race"      "decis"     "like"  
+ [4,] "countri" "educ"     "harvard" "black"     "justic"    "make"  
+ [5,] "one"     "kid"      "applic"  "white"     "law"       "know"  
+ [6,] "work"    "univers"  "admit"   "divers"    "suprem"    "say"   
+ [7,] "never"   "high"     "can"     "peopl"     "rule"      "can"   
+ [8,] "now"     "need"     "student" "discrimin" "case"      "’s"    
+ [9,] "america" "public"   "one"     "asian"     "constitut" "point" 
+[10,] "live"    "elit"     "merit"   "american"  "state"     "one"   
+[11,] "back"    "famili"   "qualifi" "equal"     "thoma"     "want"  
+[12,] "long"    "mani"     "like"    "minor"     "democrat"  "actual"
+[13,] "great"   "parent"   "univers" "racial"    "major"     "read"  
+[14,] "take"    "graduat"  "colleg"  "base"      "polit"     "thing" 
+[15,] "chang"   "children" "best"    "group"     "vote"      "differ"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>topicdoc<span class="sc">::</span><span class="fu">topic_diagnostics</span>(<span class="at">topic_model =</span> lda6, <span class="at">dtm_data =</span> dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display column-page">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["topic_num"],"name":[1],"type":["int"],"align":["right"]},{"label":["topic_size"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mean_token_length"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["dist_from_corpus"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["tf_df_dist"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["doc_prominence"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["topic_coherence"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["topic_exclusivity"],"name":[8],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"1334.1829","3":"4.6","4":"0.6616589","5":"13.30148","6":"6595","7":"-155.5822","8":"9.386533"},{"1":"2","2":"789.3321","3":"5.1","4":"0.6599802","5":"29.96201","6":"8052","7":"-124.6213","8":"9.786248"},{"1":"3","2":"783.8216","3":"5.1","4":"0.6410220","5":"22.87271","6":"7109","7":"-137.0732","8":"9.707741"},{"1":"4","2":"747.2484","3":"5.9","4":"0.6655375","5":"25.28278","6":"7350","7":"-125.3873","8":"9.861106"},{"1":"5","2":"1395.8571","3":"5.2","4":"0.6754466","5":"16.04620","6":"7951","7":"-139.2849","8":"9.849850"},{"1":"6","2":"933.5580","3":"3.7","4":"0.6683953","5":"11.52105","6":"6702","7":"-150.7432","8":"9.569569"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
 
 
 </section>
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Jordan Boyd-Graber, David Mimno, and David Newman. Care and Feeding of Topic Models: Problems, Diagnostics, and Improvements. Handbook of Mixed Membership Models and Their Applications, 2014.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
