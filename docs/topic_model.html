@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Asif Mehedi | Darden School">
-<meta name="dcterms.date" content="2024-05-13">
+<meta name="dcterms.date" content="2024-05-14">
 
 <title>Affirmative Action in College Admission: Analyzing Responses to Supreme Court Decision</title>
 <style>
@@ -137,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">May 13, 2024</p>
+        <p class="date">May 14, 2024</p>
       </div>
     </div>
     
@@ -188,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>About this document</h1>
 <section id="purpose" class="level2">
 <h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
-<p>This document contains the step-by-step code for a typical topic modeling (TM) exercise. TM is an inductive and exploratory technique. A satisfactory outcome requires experimenting with different algorithmic and parameter choices. Here we use the Latent Dirichlet Allocation (LDA) algorithm, a popular TM method, using a reasonable set of parameters. The document provides a starting point for further iteration, exploration and refinement.</p>
+<p>This notebook provides a step-by-step guide for performing topic modeling (TM). TM is an exploratory and inductive technique that often requires experimenting with various algorithms and parameters to achieve satisfactory results. In this example, we use the Latent Dirichlet Allocation (LDA) algorithm, a widely used TM method. This document serves as a starting point for further experimentation, exploration, and refinement.</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -209,7 +209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="quarto-notebook" class="level2">
 <h2 class="anchored" data-anchor-id="quarto-notebook">Quarto Notebook</h2>
-<p>This document was written as a <a href="https://quarto.org/">Quarto notebook</a>, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code.</p>
+<p>This was written as a <a href="https://quarto.org/">Quarto notebook</a>, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code.</p>
 <p>To view, change or execute any code, please open the source notebook (a .qmd file in the repository) in <a href="https://posit.co/download/rstudio-desktop/">R Studio</a>. Please consult the <a href="https://quarto.org/">Quarto website</a> for instructions on how to set up your execution environment.</p>
 <p>Alternatively, you can use the R script file that contains the same code and is available in the repository.</p>
 </section>
@@ -323,7 +323,7 @@ The code that generated <code>posts.csv</code> from the original Excel files.
 <div class="cell-output-display">
 <div data-pagedtable="false">
   <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":["post_text"],"name":[1],"type":["chr"],"align":["left"]},{"label":["post_id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["post_type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["post_length"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["post_date"],"name":[5],"type":["date"],"align":["right"]},{"label":["upvotes"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["reply_count"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["article_title"],"name":[8],"type":["chr"],"align":["left"]},{"label":["article_url"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"The grit and desire it takes for someone who's had to fight their way to the top should indeed be taken into account, in my opinion. But, this should only be for students who lag just a bit behind and not by a wide gulf as was the case at Harvard. We also have to ask if it's really to the advantage of that student to accept them into programs that are far above their abilities. The drop-out rates for students of affirmative action admissions are astoundingly high at many of these schools. African Americans are just as capable as anyone else, period. But I truly believe that we as a society have institutionalized low expectations for this group at every level. It's a demeaning practice that is bad for everyone involved.","2":"nyt2648","3":"comment","4":"728","5":"2023-07-02","6":"6","7":"1","8":"With End of Affirmative Action, a Push for a New Tool: Adversity ScoresTo build a diverse class of students, the medical school at U.C. Davis ranks applicants by the disadvantages they have faced. Can it work nationally?By Stephanie SaulPRINT EDITIONWith the End of Affirmative Action, a Push for a New Tool: Adversity Scores|July 3, 2023, Page A13","9":"https://www.nytimes.com/2023/07/02/us/affirmative-action-university-of-california-davis.html"},{"1":"since she is quite obviously an intelligent person and a deep thinker In what way is it obvious? I see only the results of a diversity hire.","2":"wsj13332","3":"reply","4":"140","5":"2023-07-06","6":"5","7":"1","8":"Opinion: Justice Jackson’s Incredible Statistic","9":"https://www.wsj.com/articles/justice-jacksons-incredible-statistic-black-newborns-doctors-math-flaw-mortality-4115ff62"},{"1":"Hi William, Typing fast and not proofing..meant dissent not decent...sorry for the confusion but you make great points in your response 🥺","2":"wsj13464","3":"reply","4":"138","5":"2023-06-30","6":"2","7":"0","8":"Opinion: A Landmark for Racial Equality at the Supreme Court","9":"https://www.wsj.com/articles/harvard-unc-students-for-fair-admissions-supreme-court-affirmative-action-john-roberts-clarence-thomas-racial-preferences-f8c998f6"},{"1":"I recall reading of something else to consider. In terms of papers publsihed as a measure of professional success, it's far better to be a scientist who graduated first, second, or third in class from a no-name state college than one who graduated in the 50th percentile from an ivy league school. The kids who ranked better at a lower tier school outperform their advantaged colleagues. I suppose that's a silver lining of what I take to be a dark cloud, If Justice Thomas's escapades aren't enough to get him booted off the bench, we're likely stuck with him and his five buddies for a good while. especially if ex-president Donnie defies the odds yet again, or a clone of his wins in '24, and 'pubs are able to pick yet another justice.","2":"nyt2583","3":"comment","4":"739","5":"2023-06-30","6":"7","7":"0","8":"I Teach at an Elite College. Here’s a Look Inside the Racial Gaming of Admissions.The end of affirmative action will only cause students and parents to get even more creative about gaming college admissions.By Tyler Austin HarperPRINT EDITION I Prepped Elite College Applicants.  Here’s How the Race Game Is Played.|July 3, 2023, Page A19","9":"https://www.nytimes.com/2023/06/29/opinion/college-admissions-affirmative-action.html"},{"1":"Re: \"Now discuss the person that didn’t get that spot\" Response: Your assumption, and others who clicked thumbs-up, imply that Mr. Guerrero was not qualified and some unknown better qualified person was unjustly overlooked. A few comments: 1. Neither of us know the specifics of that hiring process. 2. Hiring managers cannot predict how a specific hire will actually perform in the workplace. I've seen an experienced PHD employee ranked lower than a very ambitious entry level employee from a less prestigious university. I suggest you perform a deep, intellectually honest, unvarnished self assessment of why, without any supporting data, you made the assumption Mr. Guerrero was unqualified. If affirmative action laws never existed, would you have the same assumption? BTW, I have never been a fan of Affirmative Action with regards to college admissions.","2":"wsj1246","3":"reply","4":"860","5":"2023-07-01","6":"0","7":"1","8":"Companies Expect New Challenges to Diversity Policies After Court Ruling","9":"https://www.wsj.com/articles/companiesexpectnew-challenges-todiversitypolicies-after-court-ruling-4bf48c1d"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["post_text"],"name":[1],"type":["chr"],"align":["left"]},{"label":["post_id"],"name":[2],"type":["chr"],"align":["left"]},{"label":["post_type"],"name":[3],"type":["chr"],"align":["left"]},{"label":["post_length"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["post_date"],"name":[5],"type":["date"],"align":["right"]},{"label":["upvotes"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["reply_count"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["article_title"],"name":[8],"type":["chr"],"align":["left"]},{"label":["article_url"],"name":[9],"type":["chr"],"align":["left"]}],"data":[{"1":"I don't see this as a debate to win, it was like arguing with a intellectually limited child. There is nothing to win or lose. You have your fairy tales of white persecution that you want to believe, and if that makes your sad life better, then feel free to lash out at \"others\" who have taken your prosperity. My mistake was engaging with someone who is obviously as mentally challenged as you are. I wish you the best.","2":"wsj4419","3":"reply","4":"420","5":"2023-07-05","6":"0","7":"1","8":"Opinion: The Supreme Court Declares Independence","9":"https://www.wsj.com/articles/the-supreme-court-declares-independence-303-student-loan-racial-preferences-roberts-71859d37"},{"1":"Feels good to agree 100% with a Journal editorial. It's been awhile.","2":"wsj18782","3":"comment","4":"68","5":"2023-06-30","6":"7","7":"0","8":"Opinion: A Landmark for Racial Equality at the Supreme Court","9":"https://www.wsj.com/articles/harvard-unc-students-for-fair-admissions-supreme-court-affirmative-action-john-roberts-clarence-thomas-racial-preferences-f8c998f6"},{"1":"An American civil rights hero","2":"wsj21857","3":"comment","4":"29","5":"2023-07-06","6":"6","7":"0","8":"Opinion: Edward Blum, the Man Who Killed Affirmative Action","9":"https://www.wsj.com/articles/the-man-who-killed-affirmative-action-ed-blum-sffa-harvard-court-race-36143530"},{"1":"@Naturalized Citizen Not every kid has educated or even engaged parents to help them. ALL of our public schools should be very well funded and preparation for college or trade for every American kid. The US should have the best public schools in the world","2":"nyt8716","3":"reply","4":"255","5":"2023-06-29","6":"3","7":"0","8":"Ruling May Mean a Sharp Drop in Black and Latino StudentsBans on race-conscious college admissions at the state level had quick effects.By Stephanie Saul","9":"https://www.nytimes.com/2023/06/29/us/politics/affirmative-action-college-students-black-latino.html"},{"1":"Asian Americans were at the forefront of campaigning against Affirmative Action, but a possible unintended consequence of this in the current scenario will be that since universities will no longer have to consider diversity, it may actually hurt the Asian American students' chances of acceptance to competitive programs more than any other racial ethnic group in the country. In a world where SAT or ACT is no longer the primary deciding factor, it opens the door for universities to pretty much choose whoever they think is the best fit for their needs, this will include giving equal consideration to international students from emerging economies in Eastern Europe, South America, Africa, and Asia who now have the purchase power to pay out of state tuition that many revenue starved colleges desperately need, over prioritizing race and diversity in admission decisions.","2":"wsj1212","3":"comment","4":"876","5":"2023-06-29","6":"0","7":"0","8":"Can Colleges Be Racially Diverse Without Affirmative Action? Experience Suggests No","9":"https://www.wsj.com/articles/supreme-court-affirmative-action-college-admissions-e3de89d8"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
@@ -492,7 +492,7 @@ Note
 <span id="cb18-11"><a href="#cb18-11"></a>    )</span>
 <span id="cb18-12"><a href="#cb18-12"></a></span>
 <span id="cb18-13"><a href="#cb18-13"></a>    <span class="co"># Save the model</span></span>
-<span id="cb18-14"><a href="#cb18-14"></a>    <span class="fu">saveRDS</span>(lda, <span class="fu">paste0</span>(<span class="st">"models/lda_"</span>, k, <span class="st">".rds"</span>))</span>
+<span id="cb18-14"><a href="#cb18-14"></a>    <span class="fu">saveRDS</span>(lda, <span class="fu">paste0</span>(<span class="st">"R_objects/lda_"</span>, k, <span class="st">".rds"</span>))</span>
 <span id="cb18-15"><a href="#cb18-15"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -514,17 +514,53 @@ Note
 </div>
 <p>In addition to showing the top terms for each topic, we can also use the <code>topicdoc</code> package to get a diagnostic summary of the topics. The summary provides a range of metrics to evaluate the quality of the generated topics.</p>
 <p>From the package’s <a href="https://cran.r-project.org/web/packages/topicdoc/vignettes/basic_usage.html">documentation</a>:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="assets/diagnostic_metrics.jpg" class="img-fluid figure-img"></p>
-<figcaption>topicdoc metrics</figcaption>
-</figure>
-</div>
+<table class="table">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 82%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metric</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>topic_size</td>
+<td>Total (weighted) number of tokens per topic</td>
+</tr>
+<tr class="even">
+<td>mean_token_length</td>
+<td>Average number of characters for the top tokens per topic</td>
+</tr>
+<tr class="odd">
+<td>dist_from_corpus</td>
+<td>Distance of a topic’s token distribution from the overall corpus token distribution</td>
+</tr>
+<tr class="even">
+<td>tf_df_dist</td>
+<td>Distance between a topic’s token and document distributions</td>
+</tr>
+<tr class="odd">
+<td>doc_prominence</td>
+<td>Number of unique documents where a topic appears</td>
+</tr>
+<tr class="even">
+<td>topic_coherence</td>
+<td>Measure of how often the top tokens in each topic appear together in the same document</td>
+</tr>
+<tr class="odd">
+<td>topic_exclusivity</td>
+<td>Measure of how unique the top tokens in each topic are compared to the other topics</td>
+</tr>
+</tbody>
+</table>
 <p>The metrics are described in detail in <a href="https://mimno.infosci.cornell.edu/papers/2014_book_chapter_care_and_feeding.pdf">this book chapter</a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <section id="k-2" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="k-2">k = 2</h2>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>lda2 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_2.rds"</span>)</span>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>lda2 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"R_objects/lda_2.rds"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2"></a>top_terms2 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda2, <span class="dv">15</span>)</span>
 <span id="cb19-3"><a href="#cb19-3"></a><span class="fu">print</span>(top_terms2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -558,7 +594,7 @@ Note
 <section id="k-3" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="k-3">k = 3</h2>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>lda3 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_3.rds"</span>)</span>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>lda3 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"R_objects/lda_3.rds"</span>)</span>
 <span id="cb22-2"><a href="#cb22-2"></a>top_terms3 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda3, <span class="dv">15</span>)</span>
 <span id="cb22-3"><a href="#cb22-3"></a><span class="fu">print</span>(top_terms3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -592,7 +628,7 @@ Note
 <section id="k-4" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="k-4">k = 4</h2>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>lda4 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_4.rds"</span>)</span>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>lda4 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"R_objects/lda_4.rds"</span>)</span>
 <span id="cb25-2"><a href="#cb25-2"></a>top_terms4 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda4, <span class="dv">15</span>)</span>
 <span id="cb25-3"><a href="#cb25-3"></a><span class="fu">print</span>(top_terms4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -626,7 +662,7 @@ Note
 <section id="k-5" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="k-5">k = 5</h2>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>lda5 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_5.rds"</span>)</span>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>lda5 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"R_objects/lda_5.rds"</span>)</span>
 <span id="cb28-2"><a href="#cb28-2"></a>top_terms5 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda5, <span class="dv">15</span>)</span>
 <span id="cb28-3"><a href="#cb28-3"></a><span class="fu">print</span>(top_terms5)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -660,7 +696,7 @@ Note
 <section id="k-6" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="k-6">k = 6</h2>
 <div class="cell page-columns page-full">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>lda6 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"models/lda_6.rds"</span>)</span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a>lda6 <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"R_objects/lda_6.rds"</span>)</span>
 <span id="cb31-2"><a href="#cb31-2"></a>top_terms6 <span class="ot">&lt;-</span> <span class="fu">terms</span>(lda6, <span class="dv">15</span>)</span>
 <span id="cb31-3"><a href="#cb31-3"></a><span class="fu">print</span>(top_terms6)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
