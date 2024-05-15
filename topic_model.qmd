@@ -270,7 +270,7 @@ The metrics are described in detail in [this book chapter](https://mimno.infosci
 
 [^metrics]: Jordan Boyd-Graber, David Mimno, and David Newman. Care and Feeding of Topic Models: Problems, Diagnostics, and Improvements. Handbook of Mixed Membership Models and Their Applications, 2014.
 
-## k = 2
+## Topic model: k = 2
 
 ```{r}
 #| column: page
@@ -282,7 +282,7 @@ print(top_terms2)
 topicdoc::topic_diagnostics(topic_model = lda2, dtm_data = dtm)
 ```
 
-## k = 3
+## Topic model: k = 3
 
 ```{r}
 #| column: page
@@ -293,7 +293,7 @@ print(top_terms3)
 topicdoc::topic_diagnostics(topic_model = lda3, dtm_data = dtm)
 ```
 
-## k = 4
+## Topic model: k = 4
 
 ```{r}
 #| column: page
@@ -304,7 +304,7 @@ print(top_terms4)
 topicdoc::topic_diagnostics(topic_model = lda4, dtm_data = dtm)
 ```
 
-## k = 5
+## Topic model: k = 5
 
 ```{r}
 #| column: page
@@ -315,7 +315,7 @@ print(top_terms5)
 topicdoc::topic_diagnostics(topic_model = lda5, dtm_data = dtm)
 ```
 
-## k = 6
+## Topic model: k = 6
 
 ```{r}
 #| column: page
