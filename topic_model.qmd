@@ -1,64 +1,319 @@
 ---
-title: "Affirmative Action in College Admission: Readers' Response to Supreme Court Decision"
-subtitle: "Topic Modeling of NYT and WSJ Online Comments"
+title: "Affirmative Action in College Admission: Analyzing Responses to Supreme Court Decision"
+subtitle: "Topic Modeling of NYT and WSJ Online Readers' Comments"
 author: "Asif Mehedi | Darden School"
-date: 2024-05-10
+date: 2024-05-13
 execute: 
   warning: false
+  cache: true
 format:
   html:
-    toc: true
-    number-sections: true
-    colorlinks: true
-    code-overflow: scroll
-    code-fold: true
-    section-divs: true
-    backgroundcolor: cornsilk
-    code-line-numbers: true
     code-block-border-left: true
+    code-line-numbers: true
+    code-overflow: scroll
+    colorlinks: true
+    df-print: paged
+    footnotes-hover: true
+    highlight-style: gruvbox
+    lang: en-US
     link-external-icon: true
     link-external-newwindow: true
-    footnotes-hover: true
-    lang: en-US
+    section-divs: true
+    toc: true
 ---
 
-::: {.callout-tip}
-To view, change or execute any code, or to add your own, please open the source notebook (a .qmd file) in R Studio. You'll need to install the Quarto CLI tool .
+# About this document
 
-A R script version of this notebook is also available in the repository.
+## Purpose
 
-If you're reading this on a webpage, the codeblocks are collapsed by default. To expand a codeblock, click on `▶ Code`. 
-:::
+This document contains the step-by-step code for a typical topic modeling (TM) exercise. TM is an inductive and exploratory technique. A satisfactory outcome requires experimenting with different algorithmic and parameter choices. Here we use the Latent Dirichlet Allocation (LDA) algorithm, a popular TM method, using a reasonable set of parameters. The document provides a starting point for further iteration, exploration and refinement.
 
-
-::: {.callout-note}
-## About Quarto Notebook
-This document was written as a [Quarto](https://quarto.org/) notebook, which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code. It's also easy to convert a notebook to a range of formats.
-:::
-
-First we load the R packages we'll use in this exercise.
-
-```{r}
-library(tidyverse) # A collection of packages for data processing https://www.tidyverse.org/
-library(topicmodels) # LDA https://cran.r-universe.dev/topicmodels
-library(tm) # various "text mining" tasks https://r-forge.r-universe.dev/tm
-# library(wordcloud)
-library(stopwords) # lists of common words https://quanteda.r-universe.dev/stopwords
-library(ldatuning) # find optimal number of topics https://nikita-moor.r-universe.dev/ldatuning
-# possible use
-# https://bstewart.r-universe.dev/stm structural topic model
+```{mermaid}
+flowchart TD
+  input([Input: text data]) --> A(Pre-process text data) 
+  A --> B(Create document-term matrix) --> C(Decide on model parameters) 
+  C --> D(Generate topic model) 
+  D --> output([Output: N lists of terms, each list representing a topic])
+  output -.-> E(Evaluate coherence of topics) -.-> C
 ```
 
 
-To avoid ambiguity, I use the general term `post` to mean top-level comments as well as nested replies. I reserve the term `comment` to mean only top-level comments.
+## Quarto Notebook
 
+This document was written as a [Quarto notebook](https://quarto.org/), which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code.
+
+To view, change or execute any code, please open the source notebook (a .qmd file in the repository) in [R Studio](https://posit.co/download/rstudio-desktop/). Please consult the [Quarto website](https://quarto.org/) for instructions on how to set up your execution environment.
+
+Alternatively, you can use the R script file that contains the same code and is available in the repository.
+
+# Setup
+
+## Loading R packages
 
 ```{r}
+library(tidyverse)
+library(tm)
+library(topicmodels)
+library(slam)
+library(topicdoc)
+library(stopwords)
+```
+
+## Getting data
+
+We load the data from a CSV file that contains the text of the posts. The data was collected from the online comments section of two news websites, The New York Times (NYT) and The Wall Street Journal (WSJ). The data was collected in 2023, following the Supreme Court's decision on affirmative action in college admissions.
+
+```{r}
+posts <- read_csv("data/posts.csv")
+```
+
+:::{.callout-note}
+To avoid ambiguity, I use `post` as a general term to mean top-level comments as well as nested replies. The term `comment` means only top-level comments.
+:::
+
+The CSV file was earlier prepared from two Excel files, one for each news website, as follows:
+
+1. The Excel files were manually cleaned to remove duplicate, malformed and unrelated data. 
+2. The two sets of cleaned data were further processed in R to standardize their column names, remove unnecessary columns and create a few new ones.
+3. All data were then merged into a single CSV file, `posts.csv`, containing the following columns.
+
+```{r}
+glimpse(posts)
+```
+
+<details> 
+
+<summary>The code that generated `posts.csv` from the original Excel files.</summary>
+
+```{r}
+{{< include merge_datasets.R >}}
+```
+
+</details> 
+
+Below is a random sample of five rows from the `posts` data frame.
+
+```{r}
+slice_sample(posts, n = 5)
+```
+
+# Pre-processing data
+
+For topic modeling, the relevant columns of the data frame are:
+- `post_text`: the text of the post
+- `post_id`: unique identifier for each post
+
+```{r}
+# Rename relevant columns according to `tm` package requirements
+textdata <- posts |>
+  rename(doc_id = post_id, text = post_text) |>
+  select(doc_id, text) |>
+  as.data.frame()
+```
+
+The text data is first transformed through a series of steps to remove various types of noise:
+
+1. Convert to lower case
+2. Remove stopwords (common words that do not carry much meaning)
+3. Remove punctuation
+4. Remove numbers
+5. Stem words (convert related words to a common base form)
+6. Strip whitespace
+
+```{r}
+#| eval: false
+
 en_stopwords <- stopwords::stopwords(
     language = "en", source = "snowball"
 )
+corpus <- tm::Corpus(DataframeSource(textdata)) |>
+    tm_map(content_transformer(tolower)) |>
+    tm_map(removeWords, en_stopwords) |>
+    tm_map(removePunctuation, preserve_intra_word_dashes = TRUE) |>
+    tm_map(removeNumbers) |>
+    tm_map(stemDocument, language = "en") |>
+    tm_map(stripWhitespace)
 ```
 
-# How many topics?
+# Document-term matrix
 
-See the references mentioned at the end of [this vignette](https://rpubs.com/siri/ldatuning).
+Topic modeling requires, as its input, a [document-term matrix (DTM)](https://en.wikipedia.org/wiki/Document-term_matrix), where each row represents a document (a post in our case) and each column represents a term (a word).  The value of each cell in the matrix is the frequency of the term in the corresponding document.
+
+We now create a DTM from the pre-processed text data.
+
+```{r}
+min_doc <- 10
+```
+```{r}
+#| eval: false
+
+dtm <- tm::DocumentTermMatrix(corpus,
+    control = list(bounds = list(global = c(min_doc, Inf)))
+)
+
+# Vocabulary pruning may create empty rows in the dtm.
+# Such rows need to be removed before running LDA.
+idx <- slam::row_sums(dtm) > 0
+dtm <- dtm[idx, ]
+textdata <- textdata[idx, ]
+
+# Save for later use
+save(dtm, textdata, file = "r_objects/dtm.RData")
+```
+
+While creating the DTM, we removed terms that occur in fewer than `r min_doc` documents. This is done to reduce the size of the matrix and to remove terms that are too rare to be useful in identifying topics.
+
+The DTM is a sparse matrix, which means that most of the cells are zero. We can inspect the DTM and see its structure.
+
+```{r}
+load("r_objects/dtm.RData")
+tm::inspect(dtm)
+```
+
+We can find the most frequently occurring terms in the DTM for each news website.
+
+```{r}
+#| code-fold: true
+
+# Split the dtm into two parts
+dtm_wsj <- dtm[grepl("^wsj", dtm$dimnames$Docs), ]
+dtm_nyt <- dtm[grepl("^nyt", dtm$dimnames$Docs), ]
+
+# Calculate term frequencies for wsj
+term_freq_wsj <- base::colSums(as.matrix(dtm_wsj))
+
+# Sort term frequencies in descending order for wsj
+sorted_term_freq_wsj <- sort(term_freq_wsj, decreasing = TRUE)
+
+# Find the most occurring 20 terms in wsj
+top_terms_wsj <- sorted_term_freq_wsj[1:20]
+
+# Calculate term frequencies for nyt
+term_freq_nyt <- base::colSums(as.matrix(dtm_nyt))
+
+# Sort term frequencies in descending order for nyt
+sorted_term_freq_nyt <- sort(term_freq_nyt, decreasing = TRUE)
+
+# Find the most occurring 20 terms in nyt
+top_terms_nyt <- sorted_term_freq_nyt[1:20]
+```
+
+New York Times:
+
+```{r}
+print(top_terms_nyt)
+```
+
+Wall Street Journal:
+
+```{r}
+print(top_terms_wsj)
+```
+:::{.callout-note}
+The terms are *stemmed*, so they are usually not in their original form.
+:::
+
+# Topic modeling
+
+Now we are ready to run the LDA algorithm to generate topics from the DTM.
+
+The LDA function, which comes from the `topicmodels` package, has [a number of hyperparameters](https://rdrr.io/cran/topicmodels/man/tmcontrol-class.html) that can be tuned. Here we use the default values for most of them. 
+
+Since this algorithm is stochastic, meaning that it may produce different results each time it is run, we set a seed value to ensure reproducibility.
+
+The key parameter is `k`, the number of topics. We create multiple models by looping over different values of `k`, saving each model for later inspection.
+
+```{r}
+#| output: false
+#| eval: false
+
+set.seed(123)
+
+# Number of iterations for the LDA algorithm
+iter <- 1000
+
+for (k in 2:6) {
+    # Create the LDA model
+    lda <- topicmodels::LDA(dtm,
+        k = k, method = "Gibbs",
+        control = list(iter = iter, verbose = iter / 10)
+    )
+
+    # Save the model
+    saveRDS(lda, paste0("models/lda_", k, ".rds"))
+}
+```
+
+# Evaluating topics
+
+We can now inspect the topics generated by the models for each value of `k`.
+
+:::{.callout-note}
+The topics are represented as lists of terms. Within a topic, the terms are ordered by their relevance to that topic. 
+:::
+
+In addition to showing the top terms for each topic, we can also use the `topicdoc` package to get a diagnostic summary of the topics. The summary provides a range of metrics to evaluate the quality of the generated topics. 
+
+From the package's [documentation](https://cran.r-project.org/web/packages/topicdoc/vignettes/basic_usage.html):
+
+![topicdoc metrics](assets/diagnostic_metrics.jpg)
+
+The metrics are described in detail in [this book chapter](https://mimno.infosci.cornell.edu/papers/2014_book_chapter_care_and_feeding.pdf).[^metrics]
+
+[^metrics]: Jordan Boyd-Graber, David Mimno, and David Newman. Care and Feeding of Topic Models: Problems, Diagnostics, and Improvements. Handbook of Mixed Membership Models and Their Applications, 2014.
+
+## k = 2
+
+```{r}
+#| column: page
+
+lda2 <- readRDS("models/lda_2.rds")
+top_terms2 <- terms(lda2, 15)
+print(top_terms2)
+
+topicdoc::topic_diagnostics(topic_model = lda2, dtm_data = dtm)
+```
+
+## k = 3
+
+```{r}
+#| column: page
+lda3 <- readRDS("models/lda_3.rds")
+top_terms3 <- terms(lda3, 15)
+print(top_terms3)
+
+topicdoc::topic_diagnostics(topic_model = lda3, dtm_data = dtm)
+```
+
+## k = 4
+
+```{r}
+#| column: page
+lda4 <- readRDS("models/lda_4.rds")
+top_terms4 <- terms(lda4, 15)
+print(top_terms4)
+
+topicdoc::topic_diagnostics(topic_model = lda4, dtm_data = dtm)
+```
+
+## k = 5
+
+```{r}
+#| column: page
+lda5 <- readRDS("models/lda_5.rds")
+top_terms5 <- terms(lda5, 15)
+print(top_terms5)
+
+topicdoc::topic_diagnostics(topic_model = lda5, dtm_data = dtm)
+```
+
+## k = 6
+
+```{r}
+#| column: page
+lda6 <- readRDS("models/lda_6.rds")
+top_terms6 <- terms(lda6, 15)
+print(top_terms6)
+
+topicdoc::topic_diagnostics(topic_model = lda6, dtm_data = dtm)
+```
