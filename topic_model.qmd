@@ -2,7 +2,7 @@
 title: "Affirmative Action in College Admission: Analyzing Responses to Supreme Court Decision"
 subtitle: "Topic Modeling of NYT and WSJ Online Readers' Comments"
 author: "Asif Mehedi | Darden School"
-date: 2024-05-13
+date: 2024-05-14
 execute: 
   warning: false
   cache: true
@@ -26,7 +26,7 @@ format:
 
 ## Purpose
 
-This document contains the step-by-step code for a typical topic modeling (TM) exercise. TM is an inductive and exploratory technique. A satisfactory outcome requires experimenting with different algorithmic and parameter choices. Here we use the Latent Dirichlet Allocation (LDA) algorithm, a popular TM method, using a reasonable set of parameters. The document provides a starting point for further iteration, exploration and refinement.
+This notebook provides a step-by-step guide for performing topic modeling (TM). TM is an exploratory and inductive technique that often requires experimenting with various algorithms and parameters to achieve satisfactory results. In this example, we use the Latent Dirichlet Allocation (LDA) algorithm, a widely used TM method. This document serves as a starting point for further experimentation, exploration, and refinement.
 
 ```{mermaid}
 flowchart TD
@@ -40,7 +40,7 @@ flowchart TD
 
 ## Quarto Notebook
 
-This document was written as a [Quarto notebook](https://quarto.org/), which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code.
+This was written as a [Quarto notebook](https://quarto.org/), which provides a rich authoring and publishing environment. Importantly, the notebook format allows the interleaving of prose commentary and code outputs (such as tables or plots) between blocks of code.
 
 To view, change or execute any code, please open the source notebook (a .qmd file in the repository) in [R Studio](https://posit.co/download/rstudio-desktop/). Please consult the [Quarto website](https://quarto.org/) for instructions on how to set up your execution environment.
 
@@ -240,7 +240,7 @@ for (k in 2:6) {
     )
 
     # Save the model
-    saveRDS(lda, paste0("models/lda_", k, ".rds"))
+    saveRDS(lda, paste0("R_objects/lda_", k, ".rds"))
 }
 ```
 
@@ -275,7 +275,7 @@ The metrics are described in detail in [this book chapter](https://mimno.infosci
 ```{r}
 #| column: page
 
-lda2 <- readRDS("models/lda_2.rds")
+lda2 <- readRDS("R_objects/lda_2.rds")
 top_terms2 <- terms(lda2, 15)
 print(top_terms2)
 
@@ -286,7 +286,7 @@ topicdoc::topic_diagnostics(topic_model = lda2, dtm_data = dtm)
 
 ```{r}
 #| column: page
-lda3 <- readRDS("models/lda_3.rds")
+lda3 <- readRDS("R_objects/lda_3.rds")
 top_terms3 <- terms(lda3, 15)
 print(top_terms3)
 
@@ -297,7 +297,7 @@ topicdoc::topic_diagnostics(topic_model = lda3, dtm_data = dtm)
 
 ```{r}
 #| column: page
-lda4 <- readRDS("models/lda_4.rds")
+lda4 <- readRDS("R_objects/lda_4.rds")
 top_terms4 <- terms(lda4, 15)
 print(top_terms4)
 
@@ -308,7 +308,7 @@ topicdoc::topic_diagnostics(topic_model = lda4, dtm_data = dtm)
 
 ```{r}
 #| column: page
-lda5 <- readRDS("models/lda_5.rds")
+lda5 <- readRDS("R_objects/lda_5.rds")
 top_terms5 <- terms(lda5, 15)
 print(top_terms5)
 
@@ -319,7 +319,7 @@ topicdoc::topic_diagnostics(topic_model = lda5, dtm_data = dtm)
 
 ```{r}
 #| column: page
-lda6 <- readRDS("models/lda_6.rds")
+lda6 <- readRDS("R_objects/lda_6.rds")
 top_terms6 <- terms(lda6, 15)
 print(top_terms6)
 
