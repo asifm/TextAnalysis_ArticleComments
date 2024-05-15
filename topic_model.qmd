@@ -256,7 +256,15 @@ In addition to showing the top terms for each topic, we can also use the `topicd
 
 From the package's [documentation](https://cran.r-project.org/web/packages/topicdoc/vignettes/basic_usage.html):
 
-![topicdoc metrics](assets/diagnostic_metrics.jpg)
+| Metric            | Description                                                                            |
+|-------------------|----------------------------------------------------------------------------------------|
+| topic_size        | Total (weighted) number of tokens per topic                                            |
+| mean_token_length | Average number of characters for the top tokens per topic                              |
+| dist_from_corpus  | Distance of a topic’s token distribution from the overall corpus token distribution    |
+| tf_df_dist        | Distance between a topic’s token and document distributions                            |
+| doc_prominence    | Number of unique documents where a topic appears                                       |
+| topic_coherence   | Measure of how often the top tokens in each topic appear together in the same document |
+| topic_exclusivity | Measure of how unique the top tokens in each topic are compared to the other topics    |
 
 The metrics are described in detail in [this book chapter](https://mimno.infosci.cornell.edu/papers/2014_book_chapter_care_and_feeding.pdf).[^metrics]
 
