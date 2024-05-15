@@ -1,2 +1,7 @@
 *scratch*
 /.quarto/
+.Rproj.user
+.Rhistory
+.vscode
+*_cache/html
+*.Rproj

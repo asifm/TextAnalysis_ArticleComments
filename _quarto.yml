@@ -1,3 +1,12 @@
+theme: 
+  - Sandbox
+  - assets/custom.scss
+format: 
+  html:
+    title-block-banner: true
+    backgroundcolor: cornsilk
+    mainfont: Merriweather
+    linestretch: 1.7
 project:
   type: website
   output-dir: docs
